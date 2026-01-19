@@ -6,8 +6,8 @@
         <a-button v-if="!timeRemaining.isExpired" type="text" size="small" @click="emit('togglePause', countdown.id)">
           {{ countdown.isPaused ? '▶️' : '⏸️' }}
         </a-button>
-        <a-button type="text" size="small" @click="emit('edit', countdown)">编辑</a-button>
-        <a-button type="text" size="small" danger @click="handleDelete">删除</a-button>
+        <a-button type="primary" size="small" @click="emit('edit', countdown)">编辑</a-button>
+        <a-button type="primary" size="small" danger @click="handleDelete">删除</a-button>
       </div>
     </div>
 
@@ -70,64 +70,91 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
 
 <style scoped lang="less">
 .countdown-card {
+  position: relative;
   padding: 24px;
-  background: white;
-  border: 2px solid transparent;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
-  transition: all 0.3s ease;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-base);
+
+  // 微光边框效果
+  &::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    content: '';
+    background: linear-gradient(90deg, transparent, currentcolor, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
-    box-shadow: 0 8px 30px rgb(0 0 0 / 12%);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
+
+    &::before {
+      opacity: 1;
+    }
   }
 
   &.theme-blue {
-    border-color: #4facfe;
+    color: var(--accent-cyan);
 
     .time-value {
-      color: #4facfe;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 15px rgb(0 212 255 / 50%);
     }
   }
 
   &.theme-purple {
-    border-color: #667eea;
+    color: var(--accent-purple);
 
     .time-value {
-      color: #667eea;
+      color: var(--accent-purple);
+      text-shadow: 0 0 15px rgb(192 132 252 / 50%);
     }
   }
 
   &.theme-green {
-    border-color: #6bcf7f;
+    color: var(--accent-green);
 
     .time-value {
-      color: #6bcf7f;
+      color: var(--accent-green);
+      text-shadow: 0 0 15px rgb(16 185 129 / 50%);
     }
   }
 
   &.theme-orange {
-    border-color: #ff9a4d;
+    color: var(--accent-orange);
 
     .time-value {
-      color: #ff9a4d;
+      color: var(--accent-orange);
+      text-shadow: 0 0 15px rgb(251 146 60 / 50%);
     }
   }
 
   &.theme-pink {
-    border-color: #ff6b9d;
+    color: var(--accent-pink);
 
     .time-value {
-      color: #ff6b9d;
+      color: var(--accent-pink);
+      text-shadow: 0 0 15px rgb(255 107 157 / 50%);
     }
   }
 
   &.expired {
-    border-color: #ddd;
-    opacity: 0.8;
+    border-color: var(--border-color);
+    // opacity: 0.5;
 
     .time-value {
-      color: #999;
+      color: var(--text-tertiary);
+      text-shadow: none;
     }
   }
 }
@@ -144,7 +171,7 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
     margin: 0;
     font-size: 1.4rem;
     font-weight: 700;
-    color: #333;
+    color: var(--text-primary);
   }
 
   .card-actions {
@@ -152,13 +179,27 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
     flex-shrink: 0;
     gap: 4px;
   }
+
+  // .edit-btn {
+  //   color: var(--text-primary);
+  //   background: var(--bg-tertiary);
+  //   border-color: var(--border-color);
+  //   transition: var(--transition-base);
+  // }
+
+  // .delete-btn {
+  //   color: var(--text-primary);
+  //   background: var(--bg-tertiary);
+  //   border-color: var(--border-color);
+  //   transition: var(--transition-base);
+  // }
 }
 
 .countdown-description {
   margin-bottom: 16px;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .time-display {
@@ -191,7 +232,8 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
     margin: 0 4px;
     font-size: 2rem;
     font-weight: 700;
-    color: #ddd;
+    color: var(--text-tertiary);
+    opacity: 0.5;
   }
 }
 
@@ -208,14 +250,16 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
   .paused-icon,
   .expired-icon {
     font-size: 2rem;
+    filter: drop-shadow(0 0 10px currentcolor);
   }
 
   .paused-text {
-    color: #ff9a4d;
+    color: var(--accent-orange);
+    text-shadow: 0 0 10px rgb(251 146 60 / 50%);
   }
 
   .expired-text {
-    color: #999;
+    color: var(--text-secondary);
     animation: celebrate 1s ease-in-out;
   }
 }
@@ -227,6 +271,7 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
   }
 
   50% {
+    filter: drop-shadow(0 0 20px var(--accent-cyan));
     transform: scale(1.2);
   }
 }
@@ -235,9 +280,9 @@ const { timeRemaining, formatNumber, formatTargetTime, handleDelete } = useCount
   padding-top: 12px;
   margin-top: 12px;
   font-size: 0.85rem;
-  color: #999;
+  color: var(--text-tertiary);
   text-align: center;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border-color);
 }
 
 @media (width <= 768px) {

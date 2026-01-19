@@ -28,6 +28,6 @@ module.exports = {
     'no-empty-source': null,
     'color-named': null,
     'no-descending-specificity': null,
-    'declaration-no-important': null
+    'declaration-no-important': null,
   },
 }

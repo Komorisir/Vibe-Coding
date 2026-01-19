@@ -23,55 +23,75 @@ const { priorityLabels, handleToggle, handleEdit, handleDelete } = useTaskItem(p
 
 <style scoped lang="less">
 .task-item {
+  position: relative;
   display: flex;
   gap: 15px;
   align-items: center;
   padding: 15px;
   margin-bottom: 10px;
+  overflow: hidden;
   list-style: none;
-  background: #f8f9fa;
-  border-left: 4px solid #ccc;
-  border-radius: 12px;
-  transition: all 0.3s ease;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--border-color);
+  border-left-width: 3px;
+  border-radius: var(--radius-md);
+  transition: var(--transition-base);
   animation: slideIn 0.3s ease;
 
+  // 微光扫描效果
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: linear-gradient(90deg, transparent, rgb(102 126 234 / 10%), transparent);
+    transition: left 0.6s ease;
+  }
+
+  &:hover::after {
+    left: 100%;
+  }
+
   &.priority-high {
-    background: #fff5f5;
-    border-left-color: #ff6b6b;
+    border-left-color: var(--danger);
+
+    &:hover {
+      box-shadow: 0 4px 15px rgb(239 68 68 / 20%);
+    }
   }
 
   &.priority-medium {
-    background: #fffef5;
-    border-left-color: #ffd93d;
+    border-left-color: var(--warning);
+
+    &:hover {
+      box-shadow: 0 4px 15px rgb(251 191 36 / 20%);
+    }
   }
 
   &.priority-low {
-    background: #f5fff7;
-    border-left-color: #6bcf7f;
+    border-left-color: var(--accent-green);
+
+    &:hover {
+      box-shadow: 0 4px 15px rgb(16 185 129 / 20%);
+    }
   }
 
   &.completed {
-    &.priority-high {
-      background: #ffe5e5;
-    }
-
-    &.priority-medium {
-      background: #fff9e5;
-    }
-
-    &.priority-low {
-      background: #e5ffe5;
-    }
+    opacity: 0.6;
 
     .task-text {
-      color: #999;
+      color: var(--text-tertiary);
       text-decoration: line-through;
     }
   }
 
   &:hover {
-    background: #e9ecef;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
   }
 }
 
@@ -92,33 +112,40 @@ const { priorityLabels, handleToggle, handleEdit, handleDelete } = useTaskItem(p
 }
 
 .task-text {
+  position: relative;
+  z-index: 1;
   flex: 1;
   font-size: 1rem;
-  color: #333;
+  color: var(--text-primary);
   word-break: break-all;
 }
 
 .priority-badge {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   padding: 4px 10px;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 
   &.high {
     color: white;
-    background: #ff6b6b;
+    background: linear-gradient(135deg, var(--danger), #dc2626);
+    box-shadow: 0 0 10px rgb(239 68 68 / 40%);
   }
 
   &.medium {
-    color: #333;
-    background: #ffd93d;
+    color: #1a1a2e;
+    background: linear-gradient(135deg, var(--warning), #f59e0b);
+    box-shadow: 0 0 10px rgb(251 191 36 / 40%);
   }
 
   &.low {
     color: white;
-    background: #6bcf7f;
+    background: linear-gradient(135deg, var(--accent-green), #059669);
+    box-shadow: 0 0 10px rgb(16 185 129 / 40%);
   }
 }
 

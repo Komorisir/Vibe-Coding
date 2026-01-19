@@ -26,23 +26,44 @@ defineEmits<{
 
 <style scoped lang="less">
 .app-card {
+  position: relative;
   display: flex;
   gap: 20px;
   align-items: center;
   padding: 24px;
+  overflow: hidden;
   cursor: pointer;
-  background: white;
-  border: 2px solid transparent;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
-  transition: all 0.3s ease;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-base);
+
+  // 微光扫描效果
+  &::after {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    content: '';
+    background: linear-gradient(45deg, transparent 30%, rgb(102 126 234 / 10%) 50%, transparent 70%);
+    transform: translateX(-100%) translateY(-100%);
+    transition: transform 0.6s ease;
+  }
 
   &:hover {
-    border-color: #667eea;
-    box-shadow: 0 8px 30px rgb(0 0 0 / 12%);
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-card-hover);
     transform: translateY(-4px);
 
+    &::after {
+      transform: translateX(100%) translateY(100%);
+    }
+
     .app-arrow {
+      color: var(--accent-cyan);
       transform: translateX(5px);
     }
   }
@@ -54,6 +75,8 @@ defineEmits<{
   }
 
   .app-info {
+    position: relative;
+    z-index: 1;
     flex: 1;
     min-width: 0;
 
@@ -61,14 +84,14 @@ defineEmits<{
       margin: 0 0 8px;
       font-size: 1.3rem;
       font-weight: 700;
-      color: #333;
+      color: var(--text-primary);
     }
 
     .app-description {
       margin: 0 0 12px;
       font-size: 0.95rem;
       line-height: 1.5;
-      color: #666;
+      color: var(--text-secondary);
     }
 
     .app-tags {
@@ -80,18 +103,21 @@ defineEmits<{
         padding: 4px 12px;
         font-size: 0.8rem;
         font-weight: 500;
-        color: #667eea;
-        background: #f0f3ff;
-        border-radius: 12px;
+        color: var(--primary-color);
+        background: rgb(102 126 234 / 10%);
+        border: 1px solid rgb(102 126 234 / 20%);
+        border-radius: var(--radius-md);
       }
     }
   }
 
   .app-arrow {
+    position: relative;
+    z-index: 1;
     flex-shrink: 0;
     font-size: 1.5rem;
-    color: #667eea;
-    transition: transform 0.3s ease;
+    color: var(--primary-color);
+    transition: var(--transition-base);
   }
 }
 

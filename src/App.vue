@@ -44,23 +44,37 @@ function handleBackHome() {
   padding: 20px;
 
   .back-btn {
+    position: relative;
     display: flex;
     gap: 8px;
     align-items: center;
     height: auto;
-    padding: 8px 20px;
+    padding: 10px 24px;
+    overflow: hidden;
     font-size: 1rem;
     font-weight: 600;
-    border-radius: 12px;
-    transition: all 0.3s ease;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-base);
 
     .back-icon {
+      position: relative;
+      z-index: 1;
       font-size: 1.2rem;
       transition: transform 0.3s ease;
     }
 
+    span:last-child {
+      position: relative;
+      z-index: 1;
+    }
+
     &:hover {
-      background: #f0f3ff;
+      box-shadow: var(--shadow-glow);
+      transform: translateY(-2px);
 
       .back-icon {
         transform: translateX(-3px);

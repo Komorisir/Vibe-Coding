@@ -79,9 +79,10 @@ const { editInputRef, editText, selectedPriority, priorities, handlePriorityChan
 
 .edit-panel-content {
   padding: 15px;
-  background: #f8f9fa;
-  border: 2px solid #667eea;
-  border-radius: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 20px rgb(102 126 234 / 20%);
 }
 
 .task-edit-input {
@@ -111,10 +112,11 @@ const { editInputRef, editText, selectedPriority, priorities, handlePriorityChan
   height: 36px;
   cursor: pointer;
   user-select: none;
-  background: #fff;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-base);
 
   .priority-radio {
     position: absolute;
@@ -128,66 +130,65 @@ const { editInputRef, editText, selectedPriority, priorities, handlePriorityChan
   .priority-icon {
     font-size: 1.2rem;
     line-height: 1;
-    transition: var(--transition);
+    filter: drop-shadow(0 0 5px currentcolor);
+    transition: var(--transition-base);
   }
 
   &.priority-low {
-    border-color: rgb(107 207 127 / 30%);
-
     &:hover:not(.checked) {
-      background: rgb(107 207 127 / 15%);
-      border-color: #6bcf7f;
+      background: rgb(16 185 129 / 15%);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 15px rgb(16 185 129 / 30%);
       transform: scale(1.05);
     }
 
     &.checked {
-      background: #6bcf7f;
-      border-color: #6bcf7f;
+      background: var(--accent-green);
+      border-color: var(--accent-green);
+      box-shadow: 0 0 15px rgb(16 185 129 / 50%);
 
       &:hover {
-        background: #5ab86f;
-        border-color: #5ab86f;
+        box-shadow: 0 0 20px rgb(16 185 129 / 60%);
         transform: scale(1.05);
       }
     }
   }
 
   &.priority-medium {
-    border-color: rgb(255 217 61 / 30%);
-
     &:hover:not(.checked) {
-      background: rgb(255 217 61 / 15%);
-      border-color: #ffd93d;
+      background: rgb(251 191 36 / 15%);
+      border-color: var(--warning);
+      box-shadow: 0 0 15px rgb(251 191 36 / 30%);
       transform: scale(1.05);
     }
 
     &.checked {
-      background: #ffd93d;
-      border-color: #ffd93d;
+      background: var(--warning);
+      border-color: var(--warning);
+      box-shadow: 0 0 15px rgb(251 191 36 / 50%);
 
       &:hover {
-        opacity: 0.9;
+        box-shadow: 0 0 20px rgb(251 191 36 / 60%);
         transform: scale(1.05);
       }
     }
   }
 
   &.priority-high {
-    border-color: rgb(255 107 107 / 30%);
-
     &:hover:not(.checked) {
-      background: rgb(255 107 107 / 15%);
-      border-color: #ff6b6b;
+      background: rgb(239 68 68 / 15%);
+      border-color: var(--danger);
+      box-shadow: 0 0 15px rgb(239 68 68 / 30%);
       transform: scale(1.05);
     }
 
     &.checked {
-      background: #ff6b6b;
-      border-color: #ff6b6b;
+      background: var(--danger);
+      border-color: var(--danger);
+      box-shadow: 0 0 15px rgb(239 68 68 / 50%);
 
       &:hover {
-        background: #ff5252;
-        border-color: #ff5252;
+        box-shadow: 0 0 20px rgb(239 68 68 / 60%);
         transform: scale(1.05);
       }
     }
