@@ -1,0 +1,344 @@
+// CSS变量
+:root {
+  --primary-color: #667eea;
+  --primary-hover: #5568d3;
+  --danger-color: #ff6b6b;
+  --danger-hover: #ff5252;
+  --success-color: #6bcf7f;
+  --success-hover: #5ab86f;
+  --warning-color: #ffd93d;
+  --gray-color: #999;
+  --border-radius: 12px;
+  --transition: all 0.3s ease;
+}
+
+.todo-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  margin: 40px auto 0;
+
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 1rem;
+    }
+  }
+
+  .input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+
+    .task-input {
+      flex: 1;
+    }
+
+    .add-btn {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      border: none;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+      transition: var(--transition);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(79, 172, 254, 0.5);
+      }
+    }
+  }
+
+  .priority-section {
+    margin-bottom: 25px;
+  }
+
+  .priority-radio-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .priority-radio-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    background: white;
+    font-size: 0.9rem;
+    user-select: none;
+    min-width: 100px;
+
+    .priority-radio {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+      margin: 0;
+      pointer-events: none;
+    }
+
+    span {
+      transition: var(--transition);
+    }
+
+    &.priority-low {
+      border-color: rgba(107, 207, 127, 0.3);
+
+      &:hover:not(.checked) {
+        border-color: #6bcf7f;
+        background: rgba(107, 207, 127, 0.15);
+      }
+
+      &.checked {
+        background: #6bcf7f;
+        border-color: #6bcf7f;
+
+        span {
+          color: white;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background: #5ab86f;
+          border-color: #5ab86f;
+        }
+      }
+    }
+
+    &.priority-medium {
+      border-color: rgba(255, 217, 61, 0.3);
+
+      &:hover:not(.checked) {
+        border-color: #ffd93d;
+        background: rgba(255, 217, 61, 0.15);
+      }
+
+      &.checked {
+        background: #ffd93d;
+        border-color: #ffd93d;
+
+        span {
+          color: #333;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background: #ffd93d;
+          border-color: #ffd93d;
+          opacity: 0.9;
+        }
+      }
+    }
+
+    &.priority-high {
+      border-color: rgba(255, 107, 107, 0.3);
+
+      &:hover:not(.checked) {
+        border-color: #ff6b6b;
+        background: rgba(255, 107, 107, 0.15);
+      }
+
+      &.checked {
+        background: #ff6b6b;
+        border-color: #ff6b6b;
+
+        span {
+          color: white;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background: #ff5252;
+          border-color: #ff5252;
+        }
+      }
+    }
+  }
+
+  .stats {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+
+      .stat-label {
+        display: block;
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .stat-value {
+        display: block;
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .action-buttons {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .clear-btn {
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      border: none;
+      color: #333;
+      box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+      transition: var(--transition);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 154, 158, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .clear-all-btn {
+      transition: var(--transition);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .tasks-container {
+    max-height: 500px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 10px;
+
+      &:hover {
+        background: var(--primary-hover);
+      }
+    }
+  }
+
+  .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+
+    .empty-state-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .empty-state-subtitle {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-top: 10px;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .todo-container {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+
+    header h1 {
+      font-size: 2rem;
+    }
+
+    .input-section {
+      flex-direction: column;
+
+      .add-btn {
+        width: 100%;
+      }
+    }
+
+    .priority-radio-group {
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .priority-radio-label {
+      flex: 1;
+      min-width: 80px;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+      margin-bottom: 20px;
+
+      .clear-btn,
+      .clear-all-btn {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+
+    .stats {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+}
