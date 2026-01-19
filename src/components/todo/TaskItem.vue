@@ -11,38 +11,14 @@
 </template>
 
 <script setup lang="ts">
-import { useTodoStore, type Task } from '@/store/modules/todo'
+import type { Task } from '@/types'
+import { useTaskItem } from '@/hooks'
 
 const props = defineProps<{
   task: Task
 }>()
 
-const todoStore = useTodoStore()
-
-const priorityLabels = {
-  high: '高',
-  medium: '中',
-  low: '低',
-}
-
-function handleToggle() {
-  todoStore.toggleTask(props.task.id)
-}
-
-function handleEdit() {
-  todoStore.startEdit(props.task.id)
-  // 滚动到编辑面板
-  setTimeout(() => {
-    const editPanel = document.querySelector(`[data-edit-panel-id="${props.task.id}"]`)
-    if (editPanel) {
-      editPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-    }
-  }, 100)
-}
-
-function handleDelete() {
-  todoStore.deleteTask(props.task.id)
-}
+const { priorityLabels, handleToggle, handleEdit, handleDelete } = useTaskItem(props.task)
 </script>
 
 <style scoped lang="less">

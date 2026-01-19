@@ -19,7 +19,7 @@
     <div class="priority-section">
       <div class="priority-radio-group" role="radiogroup" aria-label="优先级选择">
         <label
-          v-for="priority in priorities"
+          v-for="priority in PRIORITY_OPTIONS"
           :key="priority.value"
           :class="[
             'priority-radio-label',
@@ -82,73 +82,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useTodoStore, type Priority } from '@/store/modules/todo'
-import TaskItem from './TaskItem.vue'
-import EditPanel from './EditPanel.vue'
-import { message, Modal } from 'ant-design-vue'
+import { TaskItem, EditPanel } from '@/components'
+import { useTodo } from '@/hooks'
+import { PRIORITY_OPTIONS } from '@/constants/todo'
 
-const todoStore = useTodoStore()
-
-const taskText = ref('')
-
-const priorities = [
-  { value: 'low' as Priority, label: '低优先级' },
-  { value: 'medium' as Priority, label: '中优先级' },
-  { value: 'high' as Priority, label: '高优先级' },
-]
-
-function handleAddTask() {
-  if (!taskText.value.trim()) {
-    return
-  }
-
-  todoStore.addTask(taskText.value, todoStore.selectedPriority)
-  taskText.value = ''
-}
-
-function handlePriorityChange(priority: Priority) {
-  todoStore.setSelectedPriority(priority)
-}
-
-function handleSaveTask(id: number, text: string, priority: Priority) {
-  if (!text.trim()) {
-    message.warning('任务内容不能为空！')
-    return
-  }
-  todoStore.updateTask(id, text, priority)
-}
-
-function handleCancelEdit() {
-  todoStore.cancelEdit()
-}
-
-function handleClearCompleted() {
-  if (todoStore.completedCount === 0) return
-
-  Modal.confirm({
-    title: '确认清空',
-    content: `确定要清空 ${todoStore.completedCount} 个已完成的任务吗？`,
-    onOk: () => {
-      todoStore.clearCompleted()
-      message.success('已清空已完成的任务')
-    },
-  })
-}
-
-function handleClearAll() {
-  if (todoStore.tasks.length === 0) return
-
-  Modal.confirm({
-    title: '⚠️ 警告',
-    content: `确定要清空所有 ${todoStore.tasks.length} 个任务吗？\n此操作无法撤销！`,
-    okType: 'danger',
-    onOk: () => {
-      todoStore.clearAll()
-      message.success('已清空所有任务')
-    },
-  })
-}
+const {
+  todoStore,
+  taskText,
+  handleAddTask,
+  handlePriorityChange,
+  handleSaveTask,
+  handleCancelEdit,
+  handleClearCompleted,
+  handleClearAll,
+} = useTodo()
 </script>
 
 <style scoped lang="less">

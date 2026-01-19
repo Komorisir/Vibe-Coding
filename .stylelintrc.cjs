@@ -26,7 +26,8 @@ module.exports = {
     'at-rule-no-unknown': null,
     'function-no-unknown': null,
     'no-empty-source': null,
-    'color-named': 'allow',
+    'color-named': null,
     'no-descending-specificity': null,
+    'declaration-no-important': null
   },
 }

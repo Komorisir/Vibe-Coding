@@ -1,17 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-
-export type Priority = 'low' | 'medium' | 'high'
-
-export interface Task {
-  id: number
-  text: string
-  completed: boolean
-  priority: Priority
-}
-
-const STORAGE_KEY = 'tasks'
-const DEFAULT_PRIORITY: Priority = 'medium'
+import type { Task, Priority } from '@/types/todo'
+import { STORAGE_KEY, DEFAULT_PRIORITY } from '@/constants/todo'
 
 export const useTodoStore = defineStore('todo', () => {
   // State

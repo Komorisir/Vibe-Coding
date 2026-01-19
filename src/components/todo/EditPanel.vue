@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import { type Task, type Priority } from '@/store/modules/todo'
+import type { Task, Priority } from '@/types'
+import { useEditPanel } from '@/hooks'
 
 const props = defineProps<{
   task: Task
@@ -52,42 +52,8 @@ const emit = defineEmits<{
   cancel: []
 }>()
 
-const editInputRef = ref()
-const editText = ref(props.task.text)
-const selectedPriority = ref<Priority>(props.task.priority)
-
-const priorities = [
-  { value: 'low' as Priority, icon: '🟢' },
-  { value: 'medium' as Priority, icon: '🟡' },
-  { value: 'high' as Priority, icon: '🔴' },
-]
-
-function handlePriorityChange(priority: Priority) {
-  selectedPriority.value = priority
-}
-
-function handleSave() {
-  emit('save', props.task.id, editText.value, selectedPriority.value)
-}
-
-function handleCancel() {
-  emit('cancel')
-}
-
-onMounted(() => {
-  nextTick(() => {
-    if (editInputRef.value?.focus) {
-      editInputRef.value.focus()
-      editInputRef.value.select?.()
-    } else if (editInputRef.value?.$el) {
-      const input = editInputRef.value.$el.querySelector('input')
-      if (input) {
-        input.focus()
-        input.select()
-      }
-    }
-  })
-})
+const { editInputRef, editText, selectedPriority, priorities, handlePriorityChange, handleSave, handleCancel } =
+  useEditPanel(props.task, emit)
 </script>
 
 <style scoped lang="less">

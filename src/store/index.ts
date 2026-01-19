@@ -26,3 +26,4 @@ export const setupStore = (app: App<Element>) => {
 export { store }
 export * from './modules/global'
 export * from './modules/todo'
+export * from './modules/countdown'
